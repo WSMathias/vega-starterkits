@@ -1,10 +1,5 @@
 # -*- mode: Python -*
 
-k8s_yaml('kubernetes.yaml')
-k8s_resource('example-nodejs', port_forwards=8000,
-    resource_deps=['deploy']
-)
-
 # Records the current time, then kicks off a server update.
 # Normally, you would let Tilt do deploys automatically, but this
 # shows you how to set up a custom workflow that measures it.
@@ -15,7 +10,7 @@ local_resource(
 
 # Add a live_update rule to our docker_build
 congrats = "🎉 Congrats, you ran a live_update! 🎉"
-docker_build('example-nodejs-image', '.',
+docker_build('nodejs-image', '.',
     build_args={'node_env': 'development'},
     entrypoint='yarn run nodemon /app/index.js',
     live_update=[
